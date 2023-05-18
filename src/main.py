@@ -1,5 +1,6 @@
 import gcody
 import numpy as np
+# import pyvista as pv
 
 import convert
 
@@ -15,3 +16,13 @@ gc=gcody.read(converted)
 vertices=np.array(gc.history)
 
 np.save("pointcloud.npy", vertices)
+
+# points=pv.wrap(vertices[::1])
+
+# surf=points.reconstruct_surface(nbr_sz=8,progress_bar=True)
+
+# faces=list(surf.faces)
+# facelis=[faces[i+1:i+4] for i in range(0, len(faces), 4)]
+
+# np.save("verts.npy",surf.points)
+# np.save("faces.npy",facelis)

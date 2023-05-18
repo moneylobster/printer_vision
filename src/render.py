@@ -12,22 +12,19 @@ def add_mesh(name, verts, faces, edges=None, col_name="Collection"):
     bpy.context.view_layer.objects.active = obj
     mesh.from_pydata(verts, edges, faces)
 
-"""
-verts = [( 1.0,  1.0,  0.0), 
-         ( 1.0, -1.0,  0.0),
-         (-1.0, -1.0,  0.0),
-         (-1.0,  1.0,  0.0),
-         ]
-faces = [[0, 1, 2, 3]]
-add_mesh("PlaneMesh", verts, faces)
-#"""
-
-vert_hop=1
-face_hop=5
+def create_curve(coords):
+    crv = bpy.data.curves.new('pCurve', 'CURVE')
+    crv.dimensions = '3D'
+    polyline = crv.splines.new('POLY')
+    polyline.points.add(len(coords)-1)
+    for i, coord in enumerate(coords):
+        x,y,z = coord
+        polyline.points[i].co = (x, y, z, 1)
+    curveOB = bpy.data.objects.new('PrintCurve', crv)
+    crv.bevel_depth = 0.1
+    col = bpy.data.collections["Collection"]
+    col.objects.link(curveOB)
 
 verts=np.load("pointcloud.npy")
-verts=verts[::vert_hop]
-#faces=[list(np.arange(verts.shape[0])[::face_hop])]
-faces=[]
-edges=[[i,i+1] for i in range(verts.shape[0])][:-1]
-add_mesh("PrintMesh",verts,faces,edges)
+
+create_curve(verts)
