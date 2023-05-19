@@ -1,6 +1,5 @@
 import gcody
 import numpy as np
-# import pyvista as pv
 
 import convert
 
@@ -14,6 +13,8 @@ converted=convert.convert_gcode(gcode_file)
 gc=gcody.read(converted)
 
 vertices=np.array(gc.history)
+# change units from mm to m.
+vertices=vertices/1000
 
 np.save("pointcloud.npy", vertices)
 

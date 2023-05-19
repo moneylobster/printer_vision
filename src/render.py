@@ -21,7 +21,7 @@ def create_curve(coords):
         x,y,z = coord
         polyline.points[i].co = (x, y, z, 1)
     curveOB = bpy.data.objects.new('PrintCurve', crv)
-    crv.bevel_depth = 0.1
+    crv.bevel_depth = 0.0004 # approx nozzle size.
     col = bpy.data.collections["Collection"]
     col.objects.link(curveOB)
 
