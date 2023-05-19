@@ -13,17 +13,11 @@ converted=convert.convert_gcode(gcode_file)
 gc=gcody.read(converted)
 
 vertices=np.array(gc.history)
+# we don't track when the nozzle is extruding,
+# so for now, to prevent lines to and from the home position,
+# get rid of the first few and last few points.
+vertices=vertices[10:-10]
 # change units from mm to m.
 vertices=vertices/1000
 
 np.save("pointcloud.npy", vertices)
-
-# points=pv.wrap(vertices[::1])
-
-# surf=points.reconstruct_surface(nbr_sz=8,progress_bar=True)
-
-# faces=list(surf.faces)
-# facelis=[faces[i+1:i+4] for i in range(0, len(faces), 4)]
-
-# np.save("verts.npy",surf.points)
-# np.save("faces.npy",facelis)
