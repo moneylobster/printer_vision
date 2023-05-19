@@ -1,9 +1,12 @@
 import gcody
 import numpy as np
+import subprocess
 
 import convert
 
-
+# read blender path
+with open('blender_cmd.config') as f:
+    blender_cmd = f.read()
 
 gcode_file="../gcodes/0404_028_50T_O1_LRDRIVE_X2.g"
 
@@ -21,3 +24,8 @@ vertices=vertices[10:-10]
 vertices=vertices/1000
 
 np.save("pointcloud.npy", vertices)
+
+
+# run blender
+percentage=75
+subprocess.call([blender_cmd, "--python", "render.py", "--", "-p", str(percentage)])

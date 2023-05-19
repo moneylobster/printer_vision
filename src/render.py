@@ -1,6 +1,7 @@
 import bpy
 import numpy as np
 import argparse
+import sys
 from math import floor
 
 # from https://blender.stackexchange.com/questions/61879/create-mesh-then-add-vertices-to-it-in-python
@@ -29,15 +30,15 @@ def create_curve(coords):
 
 # get how much of the 
 parser=argparse.ArgumentParser()
-parser.add_argument("percentage", nargs="?", default=100, help="Percentage of vertices to include.")
-args = parser.parse_args()
-percentage=args.percentage/100 #0-100 to 0-1
+parser.add_argument("-p", "--percentage", nargs="?", default=100, help="Percentage of vertices to include.")
+args=parser.parse_args(sys.argv[sys.argv.index("--")+1:])
+percentage=float(args.percentage)/100 #0-100 to 0-1
 
 # load vertex data from file
 verts=np.load("pointcloud.npy")
 
 # strip away vertices according to arg
-verts=verts[:floor(verts.shape[0]/percentage)]
+verts=verts[:floor(verts.shape[0]*percentage)]
 
 # clear meshes in the scene
 for obj in bpy.data.objects:
