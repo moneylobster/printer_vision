@@ -10,7 +10,7 @@ async def main():
     pr=Network("192.168.0.167")
 
     await pr.connect()
-    await pr.sendAbortRequest()
+    await print(pr.sendAbortRequest())
     await pr.disconnect()
 
 
