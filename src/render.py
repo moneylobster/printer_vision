@@ -17,6 +17,15 @@ def add_mesh(name, verts, faces, edges=None, col_name="Collection"):
     mesh.from_pydata(verts, edges, faces)
 
 def create_curve(coords, colorvec):
+    """Create a curve object in blender
+
+    Parameters
+    ----------
+    coords : list
+        list of 3d points for the curve to pass through
+    colorvec : tuple of length 4
+        color as (red, green, blue, alpha)
+    """
     #define material with specified color
     matf = bpy.data.materials.new("Filament")
     matf.use_nodes = True
