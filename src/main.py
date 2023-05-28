@@ -28,4 +28,5 @@ np.save("pointcloud.npy", vertices)
 
 # run blender
 percentage=75
-subprocess.call([blender_cmd, "--python", "render.py", "--", "-p", str(percentage)])
+colorvec=(1,1,0,1)
+subprocess.call([blender_cmd, "--python", "render.py", "--", "-p", str(percentage), "-c", str(colorvec)])
