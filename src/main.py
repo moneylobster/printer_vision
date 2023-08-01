@@ -5,14 +5,18 @@ import subprocess
 import convert
 
 # read blender path
+print("reading blender path config...")
 with open('blender_cmd.config') as f:
     blender_cmd = f.read()
+print("read blender path.")
 
-gcode_file="../gcodes/0404_028_50T_O1_LRDRIVE_X2.g"
+gcode_file="../gcodes/test_part-Body.g"
 
 # convert the gcode file
+print("converting gcode file...")
 converted=convert.convert_gcode(gcode_file)
 
+print("reading processed gcode file...")
 gc=gcody.read(converted)
 
 vertices=np.array(gc.history)
@@ -26,6 +30,7 @@ vertices=vertices/1000
 np.save("pointcloud.npy", vertices)
 
 
+print("starting blender render...")
 # run blender
 percentage=75
 colorvec=(1,1,0,1)
