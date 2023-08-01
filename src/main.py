@@ -1,6 +1,7 @@
 import gcody
 import numpy as np
 import subprocess
+import os
 
 import convert
 
@@ -34,4 +35,4 @@ print("starting blender render...")
 # run blender
 percentage=75
 colorvec=(1,1,0,1)
-subprocess.call([blender_cmd, "--python", "render.py", "--", "-p", str(percentage), "-c", str(colorvec)])
+subprocess.call([blender_cmd,"--background", "--python", "render.py", "--", "-p", str(percentage), "-c", str(colorvec), "-o", os.path.join(os.getcwd(),"render.png")])

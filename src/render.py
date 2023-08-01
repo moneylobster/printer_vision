@@ -56,6 +56,7 @@ def create_curve(coords, colorvec):
 parser=argparse.ArgumentParser()
 parser.add_argument("-p", "--percentage", nargs="?", default=100, help="Percentage of vertices to include.")
 parser.add_argument("-c", "--color", default="(0, 1, 0, 1)", help="Filament color as vector (r,g,b,a)")
+parser.add_argument("-o", "--output", help="render output file path")
 args=parser.parse_args(sys.argv[sys.argv.index("--")+1:])
 percentage=float(args.percentage)/100 #0-100 to 0-1
 colorvec=ast.literal_eval(args.color)
@@ -79,3 +80,7 @@ print("opened background file")
 # add mesh
 create_curve(verts, colorvec)
 print("added mesh to scene")
+
+# get a render
+bpy.context.scene.render.filepath = args.output
+bpy.ops.render.render(write_still=True)
