@@ -66,10 +66,16 @@ verts=np.load("pointcloud.npy")
 # strip away vertices according to arg
 verts=verts[:floor(verts.shape[0]*percentage)]
 
+'''
 # clear meshes in the scene
 for obj in bpy.data.objects:
     if obj.type == 'MESH':
         bpy.data.objects.remove(obj)
+'''
 
+# open background file
+bpy.ops.wm.open_mainfile(filepath="background.blend")
+print("opened background file")
 # add mesh
 create_curve(verts, colorvec)
+print("added mesh to scene")
